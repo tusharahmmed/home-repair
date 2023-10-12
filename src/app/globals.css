@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap");
+
+:root {
+  --body-color: #f0f0f0;
+  --theme-color: #67ad53;
+  --theme-color-dark: #48793a;
+  --theme-secondary-color: #294159;
+  --theme-secondary-color-dark: #162331;
+  --theme-overlay-color: #f183224b;
+  --theme-overlay-light-color: #132e471a;
+  --main-font: "DM Serif Text";
+  --user-header-height: 3rem;
+  --nav-width: 68px;
+  --body-color: #f5f5f5;
+  --white-color: #fff;
+  --normal-font-size: 1rem;
+  --z-fixed: 100;
+  --text-dark: #3d3c3c;
+  --text-light: #616161;
+  --colors-col: #a841e0;
+  --primary-200: #9296e0;
+  --primary-300: #6d72c7;
+  --primary-400: #4e53ad;
+  --primary-500: #343995;
+  --primary-700: #1f237a;
+  --secondary-200: #54e896;
+  --secondary-300: #36cf7a;
+  --secondary-400: #1db561;
+  --secondary-500: #099b4a;
+  --secondary-700: #00823a;
+  --shop-col: #3939a7;
+  --cart-col: #539242;
+  --view-col: #fac20a;
+  --shop-col-dark: #28287a;
+  --cart-col-dark: #457738;
+  --view-col-dark: #e9b50a;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto Condensed", sans-serif;
+}
+.public-layout * {
+  font-family: "Overpass", sans-serif;
+}
+.dashboard-layout * {
+  font-family: "Roboto Condensed", sans-serif;
+}
+.section-padding {
+  padding-left: 7%;
+  padding-right: 7%;
+}
+a {
+  text-decoration: none;
+}
+.ant-btn-primary {
+  color: #fff;
+  background-color: #1677ff !important;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+}

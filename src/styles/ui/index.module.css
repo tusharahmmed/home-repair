@@ -1,0 +1,41 @@
+.umButton {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 40px;
+  color: #fff !important;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  width: -moz-fit-content;
+  background: var(--primary-500);
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+}
+
+.umButton:hover {
+  background-color: var(--secondary-500);
+  color: #fff !important;
+  transform: translateX(-3%);
+}
+
+.umButtonWithoutAnimate {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 12px 40px;
+  color: #fff !important;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  width: -moz-fit-content;
+  background: var(--secondary-500);
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize !important;
+}

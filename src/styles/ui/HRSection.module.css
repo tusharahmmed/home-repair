@@ -1,0 +1,44 @@
+.section {
+  padding: 50px 0;
+  overflow: hidden;
+}
+
+.sectionBg {
+  background-color: #f5f6f7;
+}
+
+.sectionHeader {
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.sectionHeader h2 {
+  font-size: 26px;
+  font-weight: 500;
+  position: relative;
+  color: #2e3135;
+  text-transform: capitalize !important;
+}
+
+.sectionHeader h2:after,
+.sectionHeader h2:before {
+  content: "";
+  width: 50px;
+  height: 2px;
+  background: var(--theme-color);
+  display: inline-block;
+}
+
+.sectionHeader h2:before {
+  margin: 0 15px 10px 0;
+}
+
+.sectionHeader h2:after {
+  margin: 0 0 10px 15px;
+}
+.btnWrpaer {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

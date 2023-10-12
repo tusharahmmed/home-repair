@@ -1,0 +1,17 @@
+.footer {
+  background: url("../../assets/images/footer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+}
+.footer:before {
+  content: "";
+  background: #000c;
+  position: absolute;
+  inset: 0;
+}
+.footerContent {
+  position: relative;
+}

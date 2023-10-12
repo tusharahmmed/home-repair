@@ -1,0 +1,67 @@
+.serviceItem {
+  padding: 40px;
+  background: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+.serviceItem .icon {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.serviceItem .icon i {
+  color: var(--color-secondary);
+  font-size: 40px;
+  transition: 0.3s ease-in-out;
+  z-index: 2;
+  position: relative;
+  line-height: 1.8;
+}
+.serviceItem .icon:before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: #f0f1f2;
+  border-radius: 50px;
+  z-index: 1;
+  top: 10px;
+  right: -15px;
+  transition: 0.3s;
+}
+
+.serviceItem h3 {
+  color: var(--text-dark);
+  font-weight: 500;
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  font-size: 20px;
+  position: relative;
+  display: inline-block;
+  border-bottom: 4px solid #ebebed;
+  transition: 0.3s;
+}
+
+.serviceItem p {
+  line-height: 24px;
+  font-size: 16px;
+  margin-bottom: 0;
+  color: var(--text-light);
+}
+
+.serviceItem .readmore {
+  margin-top: 15px;
+  display: inline-block;
+  color: var(--color-primary);
+}
+
+.serviceItem:hover .icon:before {
+  background: var(--theme-color);
+}
+
+.serviceItem:hover h3 {
+  border-color: var(--theme-color);
+}
