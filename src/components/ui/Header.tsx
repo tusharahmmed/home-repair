@@ -1,15 +1,16 @@
 "use client";
 
-import {Avatar, Button, Dropdown, Layout, MenuProps, Row, Space} from "antd";
-import {UserOutlined} from "@ant-design/icons";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 
 import styles from "@/styles/ui/Header.module.css";
 import Link from "next/link";
-const {Header: AntHeader} = Layout;
+import {isLoggedIn} from "@/services/auth.service";
+import {HRButton} from ".";
 
 const Header = () => {
+  const user = isLoggedIn();
+
   return (
     <header className={`section-padding ${styles.header}`}>
       <div className={styles.wraper}>
@@ -18,7 +19,7 @@ const Header = () => {
         </div>
         <div className={styles.menuWraper}>
           <div className={styles.menuItems}>
-            <Link href={"/"}>
+            <Link href={"/home"}>
               <p>HOME</p>
             </Link>
             <Link href={"/services"}>
@@ -31,11 +32,16 @@ const Header = () => {
               <p>About</p>
             </Link>
           </div>
-          <Link href={"/login"}>
-            <Button type="primary" size="large">
-              Login
-            </Button>
-          </Link>
+
+          {user ? (
+            <Link href={"/profile"}>
+              <HRButton animate={false} title="dashboard" />
+            </Link>
+          ) : (
+            <Link href={"./login"}>
+              <HRButton animate={false} title="login" />
+            </Link>
+          )}
         </div>
       </div>
     </header>

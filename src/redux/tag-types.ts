@@ -2,6 +2,7 @@ export enum tagTypes {
   user = "user",
   profile = "profile",
   users = "users",
+  category = "category",
   // pre
   department = "department",
   faculty = "faculty",
@@ -24,6 +25,7 @@ export const tagTypesList = [
   tagTypes.user,
   tagTypes.profile,
   tagTypes.users,
+  tagTypes.category,
 
   //pre
   tagTypes.department,

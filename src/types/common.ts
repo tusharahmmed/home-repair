@@ -20,18 +20,11 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-export interface IDepartment {
+export interface ICategory {
   id: string;
   title: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
-}
-
-export interface Name {
-  firstName: string;
-  lastName: string;
-  middleName: string;
 }
 
 export interface IUser {
@@ -45,6 +38,17 @@ export interface IUser {
 }
 
 // extra
+export interface Name {
+  firstName: string;
+  lastName: string;
+  middleName: string;
+}
+export interface IDepartment {
+  id: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface IAdmin {
   id: string;

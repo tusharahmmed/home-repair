@@ -1,24 +1,21 @@
 "use client";
+import ActionBar from "@/components/ui/ActionBar";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import {Button, Input, message} from "antd";
+import Link from "next/link";
 import {
   DeleteOutlined,
   EditOutlined,
-  EyeOutlined,
   ReloadOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
-import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import {useState} from "react";
+import {useDebounced} from "@/redux/hooks";
 import UMTable from "@/components/ui/UMTable";
-import {
-  useDeleteDepartmentMutation,
-  useDepartmentsQuery,
-} from "@/redux/api/departmentApi";
-import { Button, Input, message } from "antd";
-import Link from "next/link";
-import { useState } from "react";
-import ActionBar from "@/components/ui/ActionBar";
-import { useDebounced } from "@/redux/hooks";
 import dayjs from "dayjs";
+import {useDeleteUserMutation, useUsersQuery} from "@/redux/api/userApi";
 
-const ManageDepartmentPage = () => {
+const StudentPage = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -26,46 +23,63 @@ const ManageDepartmentPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [deleteDepartment] = useDeleteDepartmentMutation();
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  // query["searchTerm"] = searchTerm;
 
-  const debouncedTerm = useDebounced({
+  const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 600,
   });
 
-  if (!!debouncedTerm) {
-    query["searchTerm"] = debouncedTerm;
+  if (!!debouncedSearchTerm) {
+    query["searchTerm"] = debouncedSearchTerm;
   }
-  const { data, isLoading } = useDepartmentsQuery({ ...query });
+  const {data, isLoading} = useUsersQuery({...query});
+  const [deleteUser] = useDeleteUserMutation();
 
-  const departments = data?.departments;
-  const meta = data?.meta;
-
-  const deleteHandler = async (id: string) => {
-    message.loading("Deleting.....");
+  const handleDeleteUser = async (id: string) => {
+    message.loading("deleting.....");
     try {
-      //   console.log(data);
-      await deleteDepartment(id);
-      message.success("Department Deleted successfully");
+      const res = await deleteUser(id);
+      if (!!res) {
+        message.success("User deleted Successfully");
+      }
     } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
+      console.error(err.message);
+      message.error(err?.data?.message);
     }
   };
 
+  const users = data?.users;
+  const meta = data?.meta;
+  // console.log(students);
+
   const columns = [
     {
-      title: "Title",
-      dataIndex: "title",
+      title: "Id",
+      dataIndex: "id",
+      sorter: true,
     },
     {
-      title: "CreatedAt",
+      title: "Name",
+      render: function (data: Record<string, string>) {
+        const fullName = `${data?.name}`;
+        return <>{fullName}</>;
+      },
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+    },
+    {
+      title: "Created at",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -73,26 +87,29 @@ const ManageDepartmentPage = () => {
       sorter: true,
     },
     {
+      title: "Contact no.",
+      dataIndex: "contactNo",
+    },
+    {
       title: "Action",
+      dataIndex: "id",
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/department/edit/${data?.id}`}>
+            <Link href={`/admin/manage-user/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",
                 }}
                 onClick={() => console.log(data)}
-                type="primary"
-              >
+                type="primary">
                 <EditOutlined />
               </Button>
             </Link>
             <Button
-              onClick={() => deleteHandler(data?.id)}
+              onClick={() => handleDeleteUser(data)}
               type="primary"
-              danger
-            >
+              danger>
               <DeleteOutlined />
             </Button>
           </>
@@ -100,14 +117,13 @@ const ManageDepartmentPage = () => {
       },
     },
   ];
-
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
-    const { order, field } = sorter;
+    const {order, field} = sorter;
     // console.log(order, field);
     setSortBy(field as string);
     setSortOrder(order === "ascend" ? "asc" : "desc");
@@ -118,7 +134,6 @@ const ManageDepartmentPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
-
   return (
     <div>
       <UMBreadCrumb
@@ -129,29 +144,24 @@ const ManageDepartmentPage = () => {
           },
         ]}
       />
-
-      <ActionBar title="Department List">
+      <ActionBar title="User List">
         <Input
-          type="text"
           size="large"
-          placeholder="Search..."
+          placeholder="Search"
+          onChange={(e) => setSearchTerm(e.target.value)}
           style={{
             width: "20%",
           }}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
         />
         <div>
-          <Link href="/admin/department/create">
+          <Link href="/admin/manage-user/create">
             <Button type="primary">Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
-              onClick={resetFilters}
+              style={{margin: "0px 5px"}}
               type="primary"
-              style={{ margin: "0px 5px" }}
-            >
+              onClick={resetFilters}>
               <ReloadOutlined />
             </Button>
           )}
@@ -161,7 +171,7 @@ const ManageDepartmentPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={departments}
+        dataSource={users}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -173,4 +183,4 @@ const ManageDepartmentPage = () => {
   );
 };
 
-export default ManageDepartmentPage;
+export default StudentPage;

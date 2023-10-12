@@ -42,24 +42,25 @@ export const sidebarItems = (role: string) => {
     ...defaultSidebarItems,
     ...commonAdminSidebarItems,
     // {
-    //   label: "Manage academic",
-    //   key: "manage-academic",
+    //   label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
     //   icon: <TableOutlined />,
-    //   children: [
-    //     {
-    //       label: <Link href={`/${role}/academic/faculty`}>Faculties</Link>,
-    //       key: `/${role}/academic/faculty`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/academic/department`}>Departments</Link>,
-    //       key: `/${role}/academic/department`,
-    //     },
-    //     {
-    //       label: <Link href={`/${role}/academic/semester`}>Semesters</Link>,
-    //       key: `/${role}/academic/semester`,
-    //     },
-    //   ],
+    //   key: `/${role}/manage-user`,
     // },
+    {
+      label: "Service Management",
+      key: "service-managemnt",
+      icon: <TableOutlined />,
+      children: [
+        {
+          label: <Link href={`/${role}/manage-category`}>Categories</Link>,
+          key: `/${role}/manage-category`,
+        },
+        {
+          label: <Link href={`/${role}/manage-service`}>Services</Link>,
+          key: `/${role}/manage-services`,
+        },
+      ],
+    },
   ];
 
   const superAdminSidebarItems: MenuProps["items"] = [
