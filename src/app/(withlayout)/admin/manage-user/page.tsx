@@ -96,12 +96,7 @@ const StudentPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-users/details/${data}`}>
-              <Button onClick={() => console.log(data)} type="primary">
-                <EyeOutlined />
-              </Button>
-            </Link>
-            <Link href={`/admin/manage-users/edit/${data}`}>
+            <Link href={`/admin/manage-user/edit/${data}`}>
               <Button
                 style={{
                   margin: "0px 5px",

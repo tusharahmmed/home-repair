@@ -3,6 +3,8 @@
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
 import FormTextArea from "@/components/Forms/FormTextArea";
+import ActionBar from "@/components/ui/ActionBar";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import {
   useGetProfileQuery,
   useUpdateProfileMutation,
@@ -39,13 +41,15 @@ const EditProfile = () => {
 
   return (
     <div>
-      <h1
-        style={{
-          margin: "15px 0px",
-          fontSize: "30px",
-        }}>
-        Sign up for create your account
-      </h1>
+      <UMBreadCrumb
+        items={[
+          {
+            label: "profile",
+            link: "/profile",
+          },
+        ]}
+      />
+      <ActionBar title="Edit Profile"> </ActionBar>
       <div>
         <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <div

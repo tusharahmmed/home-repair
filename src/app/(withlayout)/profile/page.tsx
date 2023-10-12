@@ -4,6 +4,8 @@ import {useGetProfileQuery} from "@/redux/api/profileApi";
 import {Avatar, Button} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import Link from "next/link";
+import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import ActionBar from "@/components/ui/ActionBar";
 
 const ProfilePage = () => {
   const {data} = useGetProfileQuery(undefined);
@@ -12,9 +14,15 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div>
-        <h1 className="text-2xl mb-[10px]">Profile</h1>
-      </div>
+      <UMBreadCrumb
+        items={[
+          {
+            label: "profile",
+            link: "/profile",
+          },
+        ]}
+      />
+      <ActionBar title="Profile"> </ActionBar>
       <div className="w-full max-w-sm  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="flex justify-end px-4 pt-4">
           <Link href={"/profile/edit"}>

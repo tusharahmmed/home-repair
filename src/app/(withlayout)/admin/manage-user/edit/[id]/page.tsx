@@ -7,25 +7,40 @@ import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import {roleOptions} from "@/constants/global";
-import {useAddNewUserMutation} from "@/redux/api/userApi";
+import {useUpdateUserMutation, useUserQuery} from "@/redux/api/userApi";
 
-import {createUser} from "@/schemas/creatUser";
-import {yupResolver} from "@hookform/resolvers/yup";
 import {Button, Col, Row, message} from "antd";
 import {useRouter} from "next/navigation";
 import {SubmitHandler} from "react-hook-form";
 
-const CreatUser = () => {
-  const [addNewUser] = useAddNewUserMutation();
+type IProps = {
+  params: any;
+};
+
+const EditUser = ({params}: IProps) => {
+  const {id} = params;
+
+  // get details
+  const {data} = useUserQuery(id);
+
+  const defaultValues = {
+    name: data?.name,
+    email: data?.email,
+    contactNo: data?.contactNo,
+    address: data?.address,
+    role: data?.role,
+  };
+
+  const [updateUser] = useUpdateUserMutation();
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<any> = async (data: any) => {
-    message.loading("creating.....");
+  const onSubmit: SubmitHandler<any> = async (values: any) => {
+    message.loading("updating.....");
     try {
-      const res = await addNewUser(data);
+      const res = await updateUser({id, body: values});
       if (!!res) {
-        message.success("User created Successfully");
+        message.success("User updated Successfully");
         router.push("/admin/manage-user");
       }
     } catch (err: any) {
@@ -48,9 +63,9 @@ const CreatUser = () => {
           },
         ]}
       />
-      <ActionBar title="Create New User"> </ActionBar>
+      <ActionBar title="Update User"> </ActionBar>
       <div>
-        <Form submitHandler={onSubmit} resolver={yupResolver(createUser)}>
+        <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <div
             style={{
               border: "1px solid #d9d9d9",
@@ -70,7 +85,6 @@ const CreatUser = () => {
                   type="text"
                   size="large"
                   label="Full Name"
-                  required
                 />
               </Col>
               <Col
@@ -97,7 +111,6 @@ const CreatUser = () => {
                   type="email"
                   size="large"
                   label="Email"
-                  required
                 />
               </Col>
               <Col
@@ -110,8 +123,7 @@ const CreatUser = () => {
                   name="password"
                   type="password"
                   size="large"
-                  label="Password"
-                  required
+                  label="New Password"
                 />
               </Col>
               <Col
@@ -126,7 +138,6 @@ const CreatUser = () => {
                   options={roleOptions}
                   label="Role"
                   placeholder="Select"
-                  required={true}
                 />
               </Col>
 
@@ -141,7 +152,7 @@ const CreatUser = () => {
             </Row>
           </div>
           <Button type="primary" htmlType="submit">
-            Create
+            Update
           </Button>
         </Form>
       </div>
@@ -149,4 +160,4 @@ const CreatUser = () => {
   );
 };
 
-export default CreatUser;
+export default EditUser;
