@@ -1,5 +1,5 @@
 "use client";
-import { Col, Row } from "antd";
+import {Col, Row} from "antd";
 import FormInput from "../Forms/FormInput";
 import FormSelectField from "../Forms/FormSelectField";
 import UploadImage from "../ui/UploadImage";
@@ -9,7 +9,7 @@ import {
   facultyOptions,
   genderOptions,
 } from "@/constants/global";
-import ACDepartmentField from "../Forms/ACDepartmentField";
+import ACDepartmentField from "../Forms/RCCategoryField";
 import ACFacultyField from "../Forms/ACFacultyField";
 import ACSemesterField from "../Forms/ACSemesterField";
 
@@ -22,16 +22,14 @@ const StudentInfo = () => {
         padding: "15px",
         marginBottom: "10px",
         marginTop: "10px",
-      }}
-    >
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      }}>
+      <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
         <Col
           className="gutter-row"
           span={6}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <FormInput
             type="text"
             name="student.name.firstName"
@@ -44,8 +42,7 @@ const StudentInfo = () => {
           span={6}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <FormInput
             type="text"
             name="student.name.middleName"
@@ -58,8 +55,7 @@ const StudentInfo = () => {
           span={6}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <FormInput
             type="text"
             name="student.name.lastName"
@@ -72,8 +68,7 @@ const StudentInfo = () => {
           span={6}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <FormInput
             type="password"
             name="password"
@@ -86,8 +81,7 @@ const StudentInfo = () => {
           span={8}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <ACDepartmentField
             name="student.academicDepartment"
             label="Academic Department"
@@ -98,8 +92,7 @@ const StudentInfo = () => {
           span={8}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <ACFacultyField
             name="student.academicFaculty"
             label="Academic Faculty"
@@ -110,8 +103,7 @@ const StudentInfo = () => {
           span={8}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <ACSemesterField
             name="student.academicSemester"
             label="Academic Semester"
@@ -122,8 +114,7 @@ const StudentInfo = () => {
           span={8}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <FormSelectField
             size="large"
             name="student.gender"
@@ -137,8 +128,7 @@ const StudentInfo = () => {
           span={8}
           style={{
             marginBottom: "10px",
-          }}
-        >
+          }}>
           <UploadImage name="file" />
         </Col>
       </Row>

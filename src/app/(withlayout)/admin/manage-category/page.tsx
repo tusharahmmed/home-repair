@@ -140,7 +140,7 @@ const ManageDepartmentPage = () => {
         ]}
       />
 
-      <ActionBar title="Department List">
+      <ActionBar title="Category List">
         <Input
           type="text"
           size="large"

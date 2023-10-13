@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
+    "@ckeditor/ckeditor5-build-classic": "^40.0.0",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^40.0.0",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
     "@hookform/resolvers": "^3.3.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.6.3",

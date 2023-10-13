@@ -1,16 +1,7 @@
 "use client";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ReloadOutlined} from "@ant-design/icons";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
-import {
-  useDeleteDepartmentMutation,
-  useDepartmentsQuery,
-} from "@/redux/api/departmentApi";
 import {Button, Input, message} from "antd";
 import Link from "next/link";
 import {useState} from "react";
@@ -18,9 +9,10 @@ import ActionBar from "@/components/ui/ActionBar";
 import {useDebounced} from "@/redux/hooks";
 import dayjs from "dayjs";
 import {
-  useCategoriesQuery,
-  useDeleteCategoryMutation,
-} from "@/redux/api/categoryApi";
+  useDeleteServiceMutation,
+  useServicesQuery,
+} from "@/redux/api/serviceApi";
+import Image from "next/image";
 
 const ManageDepartmentPage = () => {
   const query: Record<string, any> = {};
@@ -30,7 +22,7 @@ const ManageDepartmentPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteService] = useDeleteServiceMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -46,27 +38,48 @@ const ManageDepartmentPage = () => {
   if (!!debouncedTerm) {
     query["searchTerm"] = debouncedTerm;
   }
-  const {data, isLoading} = useCategoriesQuery({...query});
+  const {data, isLoading} = useServicesQuery({...query});
 
-  const departments = data?.categories;
+  const services = data?.services;
   const meta = data?.meta;
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
       //   console.log(data);
-      await deleteCategory(id);
-      message.success("Category Deleted successfully");
+      await deleteService(id);
+      message.success("Service Deleted successfully");
     } catch (err: any) {
       //   console.error(err.message);
-      message.error(err.message);
+      message.error(err?.data?.message);
     }
   };
 
   const columns = [
     {
+      title: "Image",
+      dataIndex: "image",
+      render: function (data: any) {
+        return (
+          <Image
+            src={"/assets/images/favicon.png"}
+            height={20}
+            width={30}
+            alt="thumb"
+          />
+        );
+      },
+    },
+    {
       title: "Title",
       dataIndex: "title",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      render: function (data: any) {
+        return data.title;
+      },
     },
     {
       title: "CreatedAt",
@@ -89,12 +102,12 @@ const ManageDepartmentPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-category/edit/${data?.id}`}>
+            <Link href={`/admin/manage-service/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
+                // onClick={() => console.log(data)}
                 type="primary">
                 <EditOutlined />
               </Button>
@@ -140,7 +153,7 @@ const ManageDepartmentPage = () => {
         ]}
       />
 
-      <ActionBar title="Department List">
+      <ActionBar title="Service List">
         <Input
           type="text"
           size="large"
@@ -153,7 +166,7 @@ const ManageDepartmentPage = () => {
           }}
         />
         <div>
-          <Link href="/admin/manage-category/create">
+          <Link href="/admin/manage-service/create">
             <Button type="primary">Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
@@ -170,7 +183,7 @@ const ManageDepartmentPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={departments}
+        dataSource={services}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}

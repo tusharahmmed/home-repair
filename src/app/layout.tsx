@@ -17,7 +17,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <html lang="en">
         <body>
           {children}
-          <script src="https://cdn.tailwindcss.com"></script>
+          {/* <script src="https://cdn.tailwindcss.com"></script> */}
         </body>
       </html>
     </Providers>

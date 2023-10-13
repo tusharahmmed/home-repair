@@ -60,3 +60,9 @@ a {
   background-color: #1677ff !important;
   box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
+
+.ck.ck-editor__editable_inline {
+  border: 1px solid var(--ck-color-base-border);
+  background: white;
+  min-height: 200px;
+}

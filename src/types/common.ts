@@ -20,19 +20,28 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-export interface ICategory {
-  id: string;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface IUser {
   id: string;
   name: string;
   email: string;
   contactNo: string;
   address: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ICategory {
+  id: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface IService {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  category: ICategory;
   createdAt: string;
   updatedAt: string;
 }

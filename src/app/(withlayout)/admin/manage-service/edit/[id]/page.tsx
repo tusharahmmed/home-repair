@@ -2,45 +2,57 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import RCCategoryField from "@/components/Forms/RCCategoryField";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import {
-  useCategoryQuery,
-  useUpdateCategoryMutation,
-} from "@/redux/api/categoryApi";
-import {categoryScema} from "@/schemas/createCategory";
+  useServiceQuery,
+  useUpdateServiceMutation,
+} from "@/redux/api/serviceApi";
+import {serviceSchema} from "@/schemas/createService";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Button, Col, Row, message} from "antd";
+import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
 
-type IProps = {
-  params: any;
-};
+const FormDescriptionEditor = dynamic(
+  () => import("@/components/Forms/FormDescriptionEditor"),
+  {
+    ssr: false,
+  }
+);
 
-const UpdateCategoryPage = ({params}: IProps) => {
-  // get default values
+const EditServicePage = ({params}: {params: any}) => {
   const {id} = params;
 
-  const {data} = useCategoryQuery(id);
+  const [editorData, setEditorData] = useState();
+  const [updateService] = useUpdateServiceMutation();
+
+  const {data} = useServiceQuery(id);
 
   const defaultValues = {
     title: data?.title,
+    image: data?.image,
+    categoryId: data?.categoryId,
   };
 
-  // const [addDepartment] = useAddDepartmentMutation();
-  const [updateCategory] = useUpdateCategoryMutation();
+  useEffect(() => {
+    setEditorData(data?.description);
+  }, [data]);
+
   const router = useRouter();
 
   const onSubmit = async (values: any) => {
-    message.loading("updating.....");
+    values.description = editorData;
+
+    message.loading("Updating.....");
     try {
-      const res = await updateCategory({id, body: values});
-      if (!!res) {
-        message.success("Category updated Successfully");
-        router.push("/admin/manage-category");
-      }
+      await updateService({id: id, body: values});
+      message.success("Service updated successfully");
+      router.push("/admin/manage-service");
     } catch (err: any) {
-      console.error(err.message);
+      // console.error(err.message);
       message.error(err?.data?.message);
     }
   };
@@ -50,15 +62,15 @@ const UpdateCategoryPage = ({params}: IProps) => {
       <UMBreadCrumb
         items={[
           {label: `${base}`, link: `/${base}`},
-          {label: "category", link: `/${base}/manage-category`},
+          {label: "service", link: `/${base}/manage-service`},
         ]}
       />
-      <ActionBar title="Create Category" />
+      <ActionBar title="Update Service" />
       <div>
         <Form
-          submitHandler={onSubmit}
           defaultValues={defaultValues}
-          resolver={yupResolver(categoryScema)}>
+          submitHandler={onSubmit}
+          resolver={yupResolver(serviceSchema)}>
           <div
             style={{
               border: "1px solid #d9d9d9",
@@ -69,6 +81,19 @@ const UpdateCategoryPage = ({params}: IProps) => {
             <Row gutter={{xs: 24, xl: 8, lg: 8, md: 24}}>
               <Col span={8} style={{margin: "10px 0"}}>
                 <FormInput name="title" label="Title" />
+              </Col>
+              <Col span={8} style={{margin: "10px 0"}}>
+                <FormInput name="image" label="Image" />
+              </Col>
+              <Col span={8} style={{margin: "10px 0"}}>
+                <RCCategoryField name="categoryId" label="Category" />
+              </Col>
+              <Col span={24} style={{margin: "10px 0"}}>
+                <FormDescriptionEditor
+                  label="Desciption"
+                  editorData={editorData}
+                  setEditorData={setEditorData}
+                />
               </Col>
             </Row>
             <Button type="primary" htmlType="submit">
@@ -81,4 +106,4 @@ const UpdateCategoryPage = ({params}: IProps) => {
   );
 };
 
-export default UpdateCategoryPage;
+export default EditServicePage;
