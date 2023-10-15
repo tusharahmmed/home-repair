@@ -33,7 +33,7 @@ const Header = () => {
             </Link>
           </div>
 
-          {user ? (
+          {/* {user ? (
             <Link href={"/profile"}>
               <HRButton animate={false} title="dashboard" />
             </Link>
@@ -41,7 +41,7 @@ const Header = () => {
             <Link href={"./login"}>
               <HRButton animate={false} title="login" />
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </header>

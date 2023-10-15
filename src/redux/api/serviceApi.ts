@@ -12,7 +12,7 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response: IService, meta: IMeta) => {
+      transformResponse: (response: IService[], meta: IMeta) => {
         return {
           services: response,
           meta,
@@ -36,6 +36,20 @@ export const serviceApi = baseApi.injectEndpoints({
         url: `${SERVICE_URL}/${id}`,
         method: "GET",
       }),
+      providesTags: [tagTypes.service],
+    }),
+    // get single department by id
+    serviceByCategory: build.query({
+      query: (categoryId) => {
+        console.log(categoryId);
+        return {url: `${SERVICE_URL}/${categoryId}/category`, method: "GET"};
+      },
+      // transformResponse: (response: IService[], meta: IMeta) => {
+      //   return {
+      //     services: response,
+      //     meta,
+      //   };
+      // },
       providesTags: [tagTypes.service],
     }),
 
@@ -66,4 +80,5 @@ export const {
   useServiceQuery, // get single department hooks
   useUpdateServiceMutation, // update single department hooks
   useDeleteServiceMutation, // delete single department hooks
+  useServiceByCategoryQuery,
 } = serviceApi;
