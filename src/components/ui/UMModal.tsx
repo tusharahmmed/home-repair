@@ -1,5 +1,5 @@
-import { Modal } from "antd";
-import { ReactElement, ReactNode } from "react";
+import {ReactElement, ReactNode} from "react";
+import {Modal} from "antd";
 
 interface IModal {
   isOpen: boolean;
@@ -27,10 +27,9 @@ const UMModal = ({
       onOk={handleOk}
       onCancel={closeModal}
       cancelButtonProps={{
-        style: { display: showCancelButton ? "inline" : "none" },
+        style: {display: showCancelButton ? "inline" : "none"},
       }}
-      okButtonProps={{ style: { display: showOkButton ? "inline" : "none" } }}
-    >
+      okButtonProps={{style: {display: showOkButton ? "inline" : "none"}}}>
       {children}
     </Modal>
   );

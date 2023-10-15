@@ -4,6 +4,7 @@ export enum tagTypes {
   users = "users",
   category = "category",
   service = "service",
+  order = "order",
   // pre
   department = "department",
   faculty = "faculty",
@@ -28,7 +29,7 @@ export const tagTypesList = [
   tagTypes.users,
   tagTypes.category,
   tagTypes.service,
-
+  tagTypes.order,
   //pre
   tagTypes.department,
   tagTypes.faculty,
