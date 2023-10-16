@@ -6,7 +6,7 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import {roleOptionForAdmin} from "@/constants/global";
+import {roleOptionForSuperAdmin} from "@/constants/global";
 import {useAddNewUserMutation} from "@/redux/api/userApi";
 
 import {createUser} from "@/schemas/creatUser";
@@ -26,7 +26,7 @@ const CreatUser = () => {
       const res = await addNewUser(data);
       if (!!res) {
         message.success("User created Successfully");
-        router.push("/admin/manage-user");
+        router.push("/super_admin/manage-admin");
       }
     } catch (err: any) {
       console.error(err.message);
@@ -39,12 +39,12 @@ const CreatUser = () => {
       <UMBreadCrumb
         items={[
           {
-            label: "admin",
-            link: "/admin",
+            label: "super_admin",
+            link: "/super_admin",
           },
           {
-            label: "manage-user",
-            link: "/admin/manage-user",
+            label: "manage-admin",
+            link: "/super_admin/manage-admin",
           },
         ]}
       />
@@ -123,7 +123,7 @@ const CreatUser = () => {
                 <FormSelectField
                   size="large"
                   name="role"
-                  options={roleOptionForAdmin}
+                  options={roleOptionForSuperAdmin}
                   label="Role"
                   placeholder="Select"
                   required={true}
