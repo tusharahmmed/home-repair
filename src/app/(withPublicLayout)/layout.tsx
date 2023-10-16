@@ -8,7 +8,6 @@ const PublicLayout = ({children}: {children: React.ReactNode}) => {
     <>
       <Header />
       {children}
-      <script src="https://cdn.tailwindcss.com"></script>
       <Footer />
     </>
   );

@@ -9,6 +9,25 @@ export const roleOptions = [
   },
 ];
 
+export const orderOptions = [
+  {
+    label: "Pending",
+    value: "pending",
+  },
+  {
+    label: "Confirmed",
+    value: "confirmed",
+  },
+  {
+    label: "Complete",
+    value: "complete",
+  },
+  {
+    label: "Cancle",
+    value: "cancle",
+  },
+];
+
 export const genderOptions = [
   {
     label: "Male",

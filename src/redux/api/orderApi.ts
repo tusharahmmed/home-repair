@@ -4,7 +4,7 @@ import {baseApi} from "./baseApi";
 
 const ORDER_URL = "/orders";
 
-export const orderApi = baseApi.injectEndpoints({
+export const orderApi: any = baseApi.injectEndpoints({
   endpoints: (build) => ({
     orders: build.query({
       query: (arg: Record<string, any>) => ({
