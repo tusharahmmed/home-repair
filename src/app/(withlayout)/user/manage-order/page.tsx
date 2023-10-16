@@ -129,7 +129,7 @@ const ManageDepartmentPage = () => {
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-order/details/${data?.id}`}>
+            <Link href={`/user/manage-order/details/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
@@ -138,7 +138,7 @@ const ManageDepartmentPage = () => {
                 <EyeOutlined />
               </Button>
             </Link>
-            <Link href={`/admin/manage-order/edit/${data?.id}`}>
+            <Link href={`/user/manage-order/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",

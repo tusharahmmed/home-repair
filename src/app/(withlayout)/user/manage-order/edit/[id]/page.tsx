@@ -3,10 +3,11 @@
 import Form from "@/components/Forms/Form";
 import FormDatePicker from "@/components/Forms/FormDatePicker";
 import FormSelectField from "@/components/Forms/FormSelectField";
+import FormTextArea from "@/components/Forms/FormTextArea";
 import FormTimePicker from "@/components/Forms/FormTimePicker";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import {orderOptions} from "@/constants/global";
+import {orderOptions, userOrderOptions} from "@/constants/global";
 import {
   useOrderDetailsQuery,
   useUpdateOrderMutation,
@@ -27,6 +28,7 @@ const UpdateOrderPage = ({params}: {params: any}) => {
     visiting_date: data?.visiting_date,
     visiting_hour: data?.visiting_hour,
     status: data?.status,
+    address: data?.address,
   };
 
   useEffect(() => {
@@ -42,13 +44,13 @@ const UpdateOrderPage = ({params}: {params: any}) => {
     try {
       await updateOrder({id: id, body: values});
       message.success("Order updated successfully");
-      router.push("/admin/manage-order");
+      router.push("/user/manage-order");
     } catch (err: any) {
       // console.error(err.message);
       message.error(err?.data?.message);
     }
   };
-  const base = "admin";
+  const base = "user";
   return (
     <div>
       <UMBreadCrumb
@@ -89,10 +91,13 @@ const UpdateOrderPage = ({params}: {params: any}) => {
                 <FormSelectField
                   size="large"
                   name="status"
-                  options={orderOptions}
+                  options={userOrderOptions}
                   label="Role"
                   placeholder="Select"
                 />
+              </Col>
+              <Col span={24} style={{margin: "10px 0"}}>
+                <FormTextArea rows={4} name="address" label="address" />
               </Col>
             </Row>
             <Button type="primary" htmlType="submit">

@@ -9,6 +9,12 @@ export const roleOptions = [
   },
 ];
 
+export const userOrderOptions = [
+  {
+    label: "Cancle",
+    value: "cancle",
+  },
+];
 export const orderOptions = [
   {
     label: "Pending",

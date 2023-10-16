@@ -15,7 +15,7 @@ const OrderDetailsPage = ({params}: {params: any}) => {
 
   const {user, service} = data || {};
 
-  const base = "admin";
+  const base = "user";
   return (
     <div>
       <UMBreadCrumb
