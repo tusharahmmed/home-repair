@@ -88,7 +88,7 @@ const ServiceDetails = ({service}: {service: IService}) => {
         isOpen={open}
         showCancelButton={false}
         showOkButton={false}
-        closeModal={() => {}}
+        closeModal={() => setOpen(false)}
         handleOk={() => {}}>
         <div>
           <Form
