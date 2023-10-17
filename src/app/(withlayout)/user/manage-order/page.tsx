@@ -183,8 +183,8 @@ const ManageDepartmentPage = () => {
       <UMBreadCrumb
         items={[
           {
-            label: "admin",
-            link: "/admin",
+            label: "user",
+            link: "/user",
           },
         ]}
       />

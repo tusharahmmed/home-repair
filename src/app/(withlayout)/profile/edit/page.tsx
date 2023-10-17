@@ -26,6 +26,7 @@ const EditProfile = () => {
   };
 
   const onSubmit: SubmitHandler<any> = async (values: any) => {
+    console.log(values);
     message.loading("updating.....");
     try {
       const res = await updateProfile(values);

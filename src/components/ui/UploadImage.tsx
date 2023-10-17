@@ -1,10 +1,10 @@
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
-import type { UploadChangeParam } from "antd/es/upload";
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import {LoadingOutlined, PlusOutlined} from "@ant-design/icons";
+import {message, Upload} from "antd";
+import type {UploadChangeParam} from "antd/es/upload";
+import type {RcFile, UploadFile, UploadProps} from "antd/es/upload/interface";
 import Image from "next/image";
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import {useState} from "react";
+import {useFormContext} from "react-hook-form";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -28,10 +28,10 @@ type ImageUploadProps = {
   name: string;
 };
 
-const UploadImage = ({ name }: ImageUploadProps) => {
+const UploadImage = ({name}: ImageUploadProps) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
-  const { setValue } = useFormContext();
+  const {setValue} = useFormContext();
 
   const handleChange: UploadProps["onChange"] = (
     info: UploadChangeParam<UploadFile>
@@ -53,7 +53,7 @@ const UploadImage = ({ name }: ImageUploadProps) => {
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
+      <div style={{marginTop: 8}}>Upload</div>
     </div>
   );
 
@@ -66,13 +66,12 @@ const UploadImage = ({ name }: ImageUploadProps) => {
         showUploadList={false}
         action="/api/file"
         beforeUpload={beforeUpload}
-        onChange={handleChange}
-      >
+        onChange={handleChange}>
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt="avatar"
-            style={{ width: "100%" }}
+            style={{width: "100%"}}
             width={100}
             height={100}
           />
