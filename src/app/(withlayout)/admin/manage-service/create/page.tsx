@@ -5,6 +5,7 @@ import FormInput from "@/components/Forms/FormInput";
 import RCCategoryField from "@/components/Forms/RCCategoryField";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UploadImage from "@/components/ui/UploadImage";
 import {useAddServiceMutation} from "@/redux/api/serviceApi";
 import {serviceSchema} from "@/schemas/createService";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -26,13 +27,18 @@ const CreateServicePage = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (data: any) => {
-    data.description = editorData;
-    console.log(data);
+  const onSubmit = async (values: any) => {
+    values.description = editorData;
+    const obj = {...values};
+    const file = obj["file"];
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
     message.loading("Creating.....");
     try {
-      console.log(data);
-      await addService(data);
+      await addService(formData);
       message.success("Service created successfully");
       router.push("/admin/manage-service");
     } catch (err: any) {
@@ -60,11 +66,16 @@ const CreateServicePage = () => {
               marginBottom: "10px",
             }}>
             <Row gutter={{xs: 24, xl: 8, lg: 8, md: 24}}>
-              <Col span={8} style={{margin: "10px 0"}}>
-                <FormInput name="title" label="Title" />
+              <Col
+                className="gutter-row"
+                span={4}
+                style={{
+                  marginBottom: "10px",
+                }}>
+                <UploadImage name="file" />
               </Col>
-              <Col span={8} style={{margin: "10px 0"}}>
-                <FormInput name="image" label="Image" />
+              <Col span={12} style={{margin: "10px 0"}}>
+                <FormInput name="title" label="Title" />
               </Col>
               <Col span={8} style={{margin: "10px 0"}}>
                 <RCCategoryField name="categoryId" label="Category" />

@@ -60,14 +60,7 @@ const ManageDepartmentPage = () => {
       title: "Image",
       dataIndex: "image",
       render: function (data: any) {
-        return (
-          <Image
-            src={"/assets/images/favicon.png"}
-            height={20}
-            width={30}
-            alt="thumb"
-          />
-        );
+        return <Image src={data} height={30} width={40} alt="thumb" />;
       },
     },
     {
