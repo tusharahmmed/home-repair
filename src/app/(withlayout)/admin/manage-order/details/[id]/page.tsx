@@ -39,10 +39,10 @@ const OrderDetailsPage = ({params}: {params: any}) => {
             style={{
               marginBottom: "10px",
             }}>
-            <div>
+            <div className="py-5">
               <Image
                 alt="service"
-                src={detailsImage}
+                src={service?.image}
                 height={200}
                 width={200}
                 layout="responsive"
