@@ -12,10 +12,11 @@ export const profileApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.profile],
     }),
     updateProfile: build.mutation({
-      query: (updatedData) => ({
+      query: (updatedData: any) => ({
         url: `${PROFILE_URL}/`,
         method: "PATCH",
         data: updatedData,
+        contentType: "multipart/form-data",
       }),
       invalidatesTags: [tagTypes.profile],
     }),

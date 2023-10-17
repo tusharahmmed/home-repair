@@ -6,11 +6,12 @@ import {UserOutlined} from "@ant-design/icons";
 import Link from "next/link";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import ActionBar from "@/components/ui/ActionBar";
+import Image from "next/image";
 
 const ProfilePage = () => {
   const {data} = useGetProfileQuery(undefined);
 
-  const {name, email, address, contactNo} = data || {};
+  const {name, email, address, contactNo, profileImg} = data || {};
 
   return (
     <>
@@ -30,15 +31,14 @@ const ProfilePage = () => {
           </Link>
         </div>
         <div className="flex flex-col items-center pb-10">
-          {/* <img
-          className="w-24 h-24 mb-3 rounded-full shadow-lg"
-          src="/docs/images/people/profile-picture-3.jpg"
-          alt="Bonnie image"
-        /> */}
-          <Avatar
-            style={{width: "4rem", height: "4rem", fontSize: "3rem"}}
-            icon={<UserOutlined />}
-          />
+          {profileImg ? (
+            <Image src={profileImg} alt="profile" height={100} width={100} />
+          ) : (
+            <Avatar
+              style={{width: "4rem", height: "4rem", fontSize: "3rem"}}
+              icon={<UserOutlined />}
+            />
+          )}
         </div>
         <div className="p-4">
           <p className="text-sm text-gray-500 dark:text-gray-400">

@@ -3,7 +3,7 @@ import {message, Upload} from "antd";
 import type {UploadChangeParam} from "antd/es/upload";
 import type {RcFile, UploadFile, UploadProps} from "antd/es/upload/interface";
 import Image from "next/image";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useFormContext} from "react-hook-form";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
@@ -17,7 +17,7 @@ const beforeUpload = (file: RcFile) => {
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 5;
   if (!isLt2M) {
     message.error("Image must smaller than 2MB!");
   }
@@ -26,12 +26,19 @@ const beforeUpload = (file: RcFile) => {
 
 type ImageUploadProps = {
   name: string;
+  defaultUrl?: string;
 };
 
-const UploadImage = ({name}: ImageUploadProps) => {
+const UploadImage = ({name, defaultUrl}: ImageUploadProps) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
   const {setValue} = useFormContext();
+
+  useEffect(() => {
+    if (defaultUrl) {
+      setImageUrl(defaultUrl);
+    }
+  }, [defaultUrl]);
 
   const handleChange: UploadProps["onChange"] = (
     info: UploadChangeParam<UploadFile>
@@ -46,6 +53,7 @@ const UploadImage = ({name}: ImageUploadProps) => {
       getBase64(info.file.originFileObj as RcFile, (url) => {
         setLoading(false);
         setImageUrl(url);
+        // setValue(name, info.file.originFileObj);
       });
     }
   };

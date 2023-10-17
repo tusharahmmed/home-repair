@@ -5,6 +5,7 @@ import FormInput from "@/components/Forms/FormInput";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UploadImage from "@/components/ui/UploadImage";
 import {
   useGetProfileQuery,
   useUpdateProfileMutation,
@@ -26,10 +27,17 @@ const EditProfile = () => {
   };
 
   const onSubmit: SubmitHandler<any> = async (values: any) => {
-    console.log(values);
+    const obj = {...values};
+    const file = obj["file"];
+    delete obj["file"];
+    const data = JSON.stringify(obj);
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+
     message.loading("updating.....");
     try {
-      const res = await updateProfile(values);
+      const res = await updateProfile(formData);
       if (!!res) {
         router.push("/profile");
         message.success("Profile updated Successfully");
@@ -61,6 +69,16 @@ const EditProfile = () => {
               marginBottom: "10px",
             }}>
             <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
+              <Col
+                className="gutter-row"
+                span={24}
+                style={{
+                  marginBottom: "10px",
+                }}>
+                <Col span={8} style={{margin: "10px 0"}}>
+                  <UploadImage defaultUrl={data?.profileImg} name="file" />
+                </Col>
+              </Col>
               <Col
                 className="gutter-row"
                 span={12}
