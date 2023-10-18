@@ -1,7 +1,6 @@
 import Image from "next/image";
 import HRSection from "../ui/HRSection";
 import {HRButton} from "../ui";
-import logo from "@/assets/images/service.png";
 import styles from "@/styles/service/serviceDetails.module.css";
 import HtmlParser from "../ui/HtmlParser";
 import UMModal from "../ui/UMModal";
@@ -82,7 +81,7 @@ const ServiceDetails = ({service}: {service: any}) => {
             <div className={styles.leftSection}>
               <div className={styles.imageWraper}>
                 <Image
-                  src={logo}
+                  src={service?.image}
                   height={200}
                   width={200}
                   layout="responsive"

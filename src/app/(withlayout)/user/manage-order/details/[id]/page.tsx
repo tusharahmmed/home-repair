@@ -2,8 +2,7 @@
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import detailsImage from "@/assets/images/service.png";
-import HtmlParser from "@/components/ui/HtmlParser";
-import {Button, Col, Row, message} from "antd";
+import {Col, Row} from "antd";
 import {useOrderDetailsQuery} from "@/redux/api/orderApi";
 import Image from "next/image";
 import dayjs from "dayjs";
@@ -42,7 +41,7 @@ const OrderDetailsPage = ({params}: {params: any}) => {
             <div>
               <Image
                 alt="service"
-                src={detailsImage}
+                src={service?.image}
                 height={200}
                 width={200}
                 layout="responsive"

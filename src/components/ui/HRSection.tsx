@@ -1,5 +1,6 @@
 import styles from "@/styles/ui/HRSection.module.css";
 import {HRButton} from "@/components/ui";
+import Link from "next/link";
 
 const HRSection = ({
   children,
@@ -20,10 +21,12 @@ const HRSection = ({
         <h2>{title}</h2>
       </div>
       <div className="section-padding">{children}</div>
-      {button && (
-        <div className={styles.btnWrpaer}>
-          <HRButton title="Explore all our projects" />
-        </div>
+      {button && link && (
+        <Link href={link}>
+          <div className={styles.btnWrpaer}>
+            <HRButton title="Explore all our projects" />
+          </div>
+        </Link>
       )}
     </section>
   );

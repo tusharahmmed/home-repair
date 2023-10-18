@@ -64,16 +64,9 @@ const ManageDepartmentPage = () => {
   const columns = [
     {
       title: "Image",
-      dataIndex: "image",
+      dataIndex: "service",
       render: function (data: any) {
-        return (
-          <Image
-            src={"/assets/images/favicon.png"}
-            height={20}
-            width={30}
-            alt="thumb"
-          />
-        );
+        return <Image src={data?.image} height={20} width={30} alt="thumb" />;
       },
     },
     {

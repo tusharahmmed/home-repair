@@ -1,4 +1,3 @@
-import logo from "@/assets/images/service.png";
 import Image from "next/image";
 import styles from "@/styles/service/serviceItem.module.css";
 import Link from "next/link";
@@ -13,7 +12,7 @@ const ServiceItem = ({details}: IProps) => {
       <div className={styles.card}>
         <Image
           className={styles.img}
-          src={logo}
+          src={details?.image}
           height={200}
           width={200}
           alt={"service"}
