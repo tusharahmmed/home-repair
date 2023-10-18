@@ -62,6 +62,13 @@ export const sidebarItems = (role: string) => {
       ],
     },
     {
+      label: (
+        <Link href={`/${role}/manage-portfolio`}>Portfoli Management</Link>
+      ),
+      icon: <TableOutlined />,
+      key: `/${role}/manage-portfolio`,
+    },
+    {
       label: <Link href={`/${role}/manage-order`}>Manage Orders</Link>,
       icon: <TableOutlined />,
       key: `/${role}/manage-order`,

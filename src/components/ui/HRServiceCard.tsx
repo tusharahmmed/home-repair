@@ -9,17 +9,31 @@ const HRServiceCard = ({details}: {details: IService}) => {
     <div className="w-[22%]">
       <Link href={`/services/details/${details?.id}`}>
         <div>
-          <Image
-            src={cardimg}
-            height={150}
-            width={199}
-            layout="responsive"
-            alt="service"
-            style={{
-              border: "1px solid gray",
-              borderRadius: "5px",
-            }}
-          />
+          {details?.image ? (
+            <Image
+              src={details?.image}
+              height={150}
+              width={199}
+              layout="responsive"
+              alt="service"
+              style={{
+                border: "1px solid gray",
+                borderRadius: "5px",
+              }}
+            />
+          ) : (
+            <Image
+              src={cardimg}
+              height={150}
+              width={199}
+              layout="responsive"
+              alt="service"
+              style={{
+                border: "1px solid gray",
+                borderRadius: "5px",
+              }}
+            />
+          )}
           <p
             style={{
               marginTop: "5px",

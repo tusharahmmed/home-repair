@@ -45,6 +45,18 @@ export interface IService {
   createdAt: string;
   updatedAt: string;
 }
+export interface IPortfolio {
+  id: string;
+  image: string;
+  client: string;
+  location: string;
+  year: string;
+  description: string;
+  category: ICategory;
+  categoryId: string;
+  cretedAt: string;
+  updatedAt: string;
+}
 
 // extra
 export interface Name {

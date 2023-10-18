@@ -6,7 +6,7 @@ import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import {roleOptions} from "@/constants/global";
+import {roleOptionForAdmin} from "@/constants/global";
 import {useUpdateUserMutation, useUserQuery} from "@/redux/api/userApi";
 
 import {Button, Col, Row, message} from "antd";
@@ -135,7 +135,7 @@ const EditUser = ({params}: IProps) => {
                 <FormSelectField
                   size="large"
                   name="role"
-                  options={roleOptions}
+                  options={roleOptionForAdmin}
                   label="Role"
                   placeholder="Select"
                 />
