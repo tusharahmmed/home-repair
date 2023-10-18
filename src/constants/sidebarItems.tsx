@@ -3,11 +3,9 @@ import type {MenuProps} from "antd";
 import {
   ProfileOutlined,
   TableOutlined,
-  AppstoreOutlined,
-  ScheduleOutlined,
-  ThunderboltOutlined,
-  CreditCardOutlined,
-  FileTextOutlined,
+  AppstoreAddOutlined,
+  UsergroupAddOutlined,
+  BlockOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import {USER_ROLE} from "./role";
@@ -32,24 +30,9 @@ export const sidebarItems = (role: string) => {
 
   const commonAdminSidebarItems: MenuProps["items"] = [
     {
-      label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
-      icon: <TableOutlined />,
-      key: `/${role}/manage-user`,
-    },
-  ];
-
-  const adminSidebarItems: MenuProps["items"] = [
-    ...defaultSidebarItems,
-    ...commonAdminSidebarItems,
-    // {
-    //   label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
-    //   icon: <TableOutlined />,
-    //   key: `/${role}/manage-user`,
-    // },
-    {
       label: "Service Management",
       key: "service-managemnt",
-      icon: <TableOutlined />,
+      icon: <AppstoreAddOutlined />,
       children: [
         {
           label: <Link href={`/${role}/manage-category`}>Categories</Link>,
@@ -65,7 +48,7 @@ export const sidebarItems = (role: string) => {
       label: (
         <Link href={`/${role}/manage-portfolio`}>Portfoli Management</Link>
       ),
-      icon: <TableOutlined />,
+      icon: <BlockOutlined />,
       key: `/${role}/manage-portfolio`,
     },
     {
@@ -75,14 +58,26 @@ export const sidebarItems = (role: string) => {
     },
   ];
 
+  const adminSidebarItems: MenuProps["items"] = [
+    ...defaultSidebarItems,
+    {
+      label: <Link href={`/${role}/manage-user`}>Manage User</Link>,
+      icon: <UsergroupAddOutlined />,
+      key: `/${role}/manage-user`,
+    },
+
+    ...commonAdminSidebarItems,
+  ];
+
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
 
     {
       label: <Link href={`/${role}/manage-admin`}>Manage Admin</Link>,
-      icon: <TableOutlined />,
+      icon: <UsergroupAddOutlined />,
       key: `/${role}/admin`,
     },
+    ...commonAdminSidebarItems,
   ];
 
   const userSidebarItems: MenuProps["items"] = [

@@ -1,21 +1,20 @@
 "use client";
-import ActionBar from "@/components/ui/ActionBar";
+import {DeleteOutlined, EditOutlined, ReloadOutlined} from "@ant-design/icons";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
+import UMTable from "@/components/ui/UMTable";
 import {Button, Input, message} from "antd";
 import Link from "next/link";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
 import {useState} from "react";
+import ActionBar from "@/components/ui/ActionBar";
 import {useDebounced} from "@/redux/hooks";
-import UMTable from "@/components/ui/UMTable";
 import dayjs from "dayjs";
-import {useDeleteUserMutation, useUsersQuery} from "@/redux/api/userApi";
+import {
+  useDeleteServiceMutation,
+  useServicesQuery,
+} from "@/redux/api/serviceApi";
+import Image from "next/image";
 
-const StudentPage = () => {
+const ManageDepartmentPage = () => {
   const query: Record<string, any> = {};
 
   const [page, setPage] = useState<number>(1);
@@ -23,63 +22,60 @@ const StudentPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [deleteService] = useDeleteServiceMutation();
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
+  // query["searchTerm"] = searchTerm;
 
-  const debouncedSearchTerm = useDebounced({
+  const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 600,
   });
 
-  if (!!debouncedSearchTerm) {
-    query["searchTerm"] = debouncedSearchTerm;
+  if (!!debouncedTerm) {
+    query["searchTerm"] = debouncedTerm;
   }
-  const {data, isLoading} = useUsersQuery({...query});
-  const [deleteUser] = useDeleteUserMutation();
+  const {data, isLoading} = useServicesQuery({...query});
 
-  const handleDeleteUser = async (id: string) => {
-    message.loading("deleting.....");
+  const services = data?.services;
+  const meta = data?.meta;
+
+  const deleteHandler = async (id: string) => {
+    message.loading("Deleting.....");
     try {
-      const res = await deleteUser(id);
-      if (!!res) {
-        message.success("User deleted Successfully");
-      }
+      //   console.log(data);
+      await deleteService(id);
+      message.success("Service Deleted successfully");
     } catch (err: any) {
-      console.error(err.message);
+      //   console.error(err.message);
       message.error(err?.data?.message);
     }
   };
 
-  const users = data?.users;
-  const meta = data?.meta;
-  // console.log(students);
-
   const columns = [
     {
-      title: "Id",
-      dataIndex: "id",
-      sorter: true,
-    },
-    {
-      title: "Name",
-      render: function (data: Record<string, string>) {
-        const fullName = `${data?.name}`;
-        return <>{fullName}</>;
+      title: "Image",
+      dataIndex: "image",
+      render: function (data: any) {
+        return <Image src={data} height={30} width={40} alt="thumb" />;
       },
     },
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Title",
+      dataIndex: "title",
     },
     {
-      title: "Role",
-      dataIndex: "role",
+      title: "Category",
+      dataIndex: "category",
+      render: function (data: any) {
+        return data.title;
+      },
     },
     {
-      title: "Created at",
+      title: "CreatedAt",
       dataIndex: "createdAt",
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -87,27 +83,30 @@ const StudentPage = () => {
       sorter: true,
     },
     {
-      title: "Contact no.",
-      dataIndex: "contactNo",
+      title: "UpdatedAt",
+      dataIndex: "updatedAt",
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
+      sorter: true,
     },
     {
       title: "Action",
-      dataIndex: "id",
       render: function (data: any) {
         return (
           <>
-            <Link href={`/admin/manage-user/edit/${data}`}>
+            <Link href={`/super_admin/manage-service/edit/${data?.id}`}>
               <Button
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
+                // onClick={() => console.log(data)}
                 type="primary">
                 <EditOutlined />
               </Button>
             </Link>
             <Button
-              onClick={() => handleDeleteUser(data)}
+              onClick={() => deleteHandler(data?.id)}
               type="primary"
               danger>
               <DeleteOutlined />
@@ -117,6 +116,7 @@ const StudentPage = () => {
       },
     },
   ];
+
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
@@ -134,34 +134,39 @@ const StudentPage = () => {
     setSortOrder("");
     setSearchTerm("");
   };
+
   return (
     <div>
       <UMBreadCrumb
         items={[
           {
-            label: "admin",
-            link: "/admin",
+            label: "super_admin",
+            link: "/super_admin",
           },
         ]}
       />
-      <ActionBar title="User List">
+
+      <ActionBar title="Service List">
         <Input
+          type="text"
           size="large"
-          placeholder="Search"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search..."
           style={{
             width: "20%",
           }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
         />
         <div>
-          <Link href="/admin/manage-user/create">
+          <Link href="/super_admin/manage-service/create">
             <Button type="primary">Create</Button>
           </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
-              style={{margin: "0px 5px"}}
+              onClick={resetFilters}
               type="primary"
-              onClick={resetFilters}>
+              style={{margin: "0px 5px"}}>
               <ReloadOutlined />
             </Button>
           )}
@@ -171,7 +176,7 @@ const StudentPage = () => {
       <UMTable
         loading={isLoading}
         columns={columns}
-        dataSource={users}
+        dataSource={services}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -183,4 +188,4 @@ const StudentPage = () => {
   );
 };
 
-export default StudentPage;
+export default ManageDepartmentPage;
