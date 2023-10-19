@@ -7,10 +7,6 @@ import {
 } from "@ant-design/icons";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
 import UMTable from "@/components/ui/UMTable";
-import {
-  useDeleteDepartmentMutation,
-  useDepartmentsQuery,
-} from "@/redux/api/departmentApi";
 import {Button, Input, message} from "antd";
 import Link from "next/link";
 import {useState} from "react";
