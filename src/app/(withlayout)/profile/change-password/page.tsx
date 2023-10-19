@@ -14,7 +14,7 @@ const ChangePassword = () => {
   const onSubmit = async (data: any) => {
     message.loading("updating.....");
     try {
-      console.log(data);
+      // console.log(data);
       const res = await updateProfile(data);
       if (!!res) {
         message.success("Password changed Successfully");

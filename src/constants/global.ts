@@ -6,12 +6,26 @@ export const roleOptionForAdmin = [
 ];
 export const roleOptionForSuperAdmin = [
   {
-    label: "User",
-    value: "user",
-  },
-  {
     label: "Admin",
     value: "admin",
+  },
+];
+export const adminPermissionOptions = [
+  {
+    label: "Category",
+    value: "category",
+  },
+  {
+    label: "Service",
+    value: "service",
+  },
+  {
+    label: "Portfolio",
+    value: "portfolio",
+  },
+  {
+    label: "Order",
+    value: "order",
   },
 ];
 

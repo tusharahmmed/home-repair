@@ -1,8 +1,9 @@
 import LoginPage from "@/components/Login/Login";
-import { Metadata } from "next";
+import {Metadata} from "next";
 
 export const metadata: Metadata = {
-  title: "UMS | Login",
+  title: "Login | Home Repair Bangladesh",
+  description: "Home Repair Bangladesh",
 };
 
 const Login = () => {

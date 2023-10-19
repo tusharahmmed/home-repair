@@ -2,11 +2,15 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormMultiSelectField from "@/components/Forms/FormMultiSelectField";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import {roleOptionForSuperAdmin} from "@/constants/global";
+import {
+  adminPermissionOptions,
+  roleOptionForSuperAdmin,
+} from "@/constants/global";
 import {useUpdateUserMutation, useUserQuery} from "@/redux/api/userApi";
 
 import {Button, Col, Row, message} from "antd";
@@ -29,6 +33,7 @@ const EditUser = ({params}: IProps) => {
     contactNo: data?.contactNo,
     address: data?.address,
     role: data?.role,
+    permissions: data?.permissions,
   };
 
   const [updateUser] = useUpdateUserMutation();
@@ -63,7 +68,7 @@ const EditUser = ({params}: IProps) => {
           },
         ]}
       />
-      <ActionBar title="Update User"> </ActionBar>
+      <ActionBar title="Update Admin"> </ActionBar>
       <div>
         <Form submitHandler={onSubmit} defaultValues={defaultValues}>
           <div
@@ -76,7 +81,7 @@ const EditUser = ({params}: IProps) => {
             <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
               <Col
                 className="gutter-row"
-                span={12}
+                span={8}
                 style={{
                   marginBottom: "10px",
                 }}>
@@ -89,7 +94,7 @@ const EditUser = ({params}: IProps) => {
               </Col>
               <Col
                 className="gutter-row"
-                span={12}
+                span={8}
                 style={{
                   marginBottom: "10px",
                 }}>
@@ -98,6 +103,20 @@ const EditUser = ({params}: IProps) => {
                   type="text"
                   size="large"
                   label="Contact Number"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}>
+                <FormMultiSelectField
+                  name="permissions"
+                  label="Permissions"
+                  size="large"
+                  placeholder="Select"
+                  options={adminPermissionOptions}
                 />
               </Col>
               <Col

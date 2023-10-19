@@ -42,7 +42,7 @@ export const serviceApi = baseApi.injectEndpoints({
     // get single department by id
     serviceByCategory: build.query({
       query: (categoryId) => {
-        console.log(categoryId);
+        // console.log(categoryId);
         return {url: `${SERVICE_URL}/${categoryId}/category`, method: "GET"};
       },
       // transformResponse: (response: IService[], meta: IMeta) => {

@@ -25,9 +25,17 @@ export interface IUser {
   name: string;
   email: string;
   contactNo: string;
+  permissions: USER_PERMISSION[];
   address: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export enum USER_PERMISSION {
+  category = "category",
+  service = "service",
+  portfolio = "portfolio",
+  order = "order",
 }
 
 export interface ICategory {

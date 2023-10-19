@@ -94,7 +94,7 @@ const ManageDepartmentPage = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
+                onClick={() => {}}
                 type="primary">
                 <EditOutlined />
               </Button>
@@ -112,7 +112,7 @@ const ManageDepartmentPage = () => {
   ];
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log("Page:", page, "PageSize:", pageSize);
+    // console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };

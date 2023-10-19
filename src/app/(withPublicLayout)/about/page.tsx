@@ -3,6 +3,12 @@ import logo from "@/assets/images/ceo.jpg";
 import styles from "@/styles/service/serviceDetails.module.css";
 
 import HRSection from "@/components/ui/HRSection";
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+  title: "About | Home Repair Bangladesh",
+  description: "Home Repair Bangladesh",
+};
 
 const AboutPage = () => {
   return (

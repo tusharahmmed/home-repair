@@ -101,7 +101,7 @@ const StudentPage = () => {
                 style={{
                   margin: "0px 5px",
                 }}
-                onClick={() => console.log(data)}
+                onClick={() => {}}
                 type="primary">
                 <EditOutlined />
               </Button>

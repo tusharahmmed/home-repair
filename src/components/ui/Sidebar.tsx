@@ -6,6 +6,7 @@ import {Layout, Menu} from "antd";
 import {sidebarItems} from "@/constants/sidebarItems";
 // import {USER_ROLE} from "@/constants/role";
 import {getUserInfo} from "@/services/auth.service";
+import {useUserQuery} from "@/redux/api/userApi";
 
 const {Sider} = Layout;
 
@@ -13,7 +14,9 @@ const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   // const role = USER_ROLE.ADMIN;
-  const {role} = getUserInfo() as any;
+  const {role, id} = getUserInfo() as any;
+
+  const {data} = useUserQuery(id);
 
   return (
     <Sider
@@ -38,13 +41,13 @@ const SideBar = () => {
           marginBottom: ".5rem",
           padding: "10px 0px",
         }}>
-        UMS
+        HRB
       </div>
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}
         mode="inline"
-        items={sidebarItems(role)}
+        items={sidebarItems(role, data)}
       />
     </Sider>
   );

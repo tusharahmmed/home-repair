@@ -9,7 +9,8 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import {USER_ROLE} from "./role";
-export const sidebarItems = (role: string) => {
+import {IUser, USER_PERMISSION} from "@/types";
+export const sidebarItems = (role: string, userData: IUser) => {
   const defaultSidebarItems: MenuProps["items"] = [
     {
       label: "Profile",
@@ -58,6 +59,73 @@ export const sidebarItems = (role: string) => {
     },
   ];
 
+  const adminPermissionSidebarItems: MenuProps["items"] = [];
+
+  // check permissions
+  if (
+    userData?.permissions?.includes(USER_PERMISSION.category) &&
+    userData?.permissions?.includes(USER_PERMISSION.service)
+  ) {
+    adminPermissionSidebarItems.push({
+      label: "Service Management",
+      key: "service-managemnt",
+      icon: <AppstoreAddOutlined />,
+      children: [
+        {
+          label: <Link href={`/${role}/manage-category`}>Categories</Link>,
+          key: `/${role}/manage-category`,
+        },
+        {
+          label: <Link href={`/${role}/manage-service`}>Services</Link>,
+          key: `/${role}/manage-services`,
+        },
+      ],
+    });
+  } else if (userData?.permissions?.includes(USER_PERMISSION.category)) {
+    adminPermissionSidebarItems.push({
+      label: "Service Management",
+      key: "service-managemnt",
+      icon: <AppstoreAddOutlined />,
+      children: [
+        {
+          label: <Link href={`/${role}/manage-category`}>Categories</Link>,
+          key: `/${role}/manage-category`,
+        },
+      ],
+    });
+  } else if (userData?.permissions?.includes(USER_PERMISSION.service)) {
+    adminPermissionSidebarItems.push({
+      label: "Service Management",
+      key: "service-managemnt",
+      icon: <AppstoreAddOutlined />,
+      children: [
+        {
+          label: <Link href={`/${role}/manage-service`}>Services</Link>,
+          key: `/${role}/manage-services`,
+        },
+      ],
+    });
+  } else {
+  }
+
+  if (userData?.permissions?.includes(USER_PERMISSION.portfolio)) {
+    adminPermissionSidebarItems.push({
+      label: (
+        <Link href={`/${role}/manage-portfolio`}>Portfoli Management</Link>
+      ),
+      icon: <BlockOutlined />,
+      key: `/${role}/manage-portfolio`,
+    });
+  }
+
+  if (userData?.permissions?.includes(USER_PERMISSION.order)) {
+    adminPermissionSidebarItems.push({
+      label: <Link href={`/${role}/manage-order`}>Manage Orders</Link>,
+      icon: <TableOutlined />,
+      key: `/${role}/manage-order`,
+    });
+  }
+
   const adminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
     {
@@ -66,7 +134,7 @@ export const sidebarItems = (role: string) => {
       key: `/${role}/manage-user`,
     },
 
-    ...commonAdminSidebarItems,
+    ...adminPermissionSidebarItems,
   ];
 
   const superAdminSidebarItems: MenuProps["items"] = [

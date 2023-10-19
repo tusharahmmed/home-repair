@@ -2,11 +2,15 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
+import FormMultiSelectField from "@/components/Forms/FormMultiSelectField";
 import FormSelectField from "@/components/Forms/FormSelectField";
 import FormTextArea from "@/components/Forms/FormTextArea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCrumb from "@/components/ui/UMBreadCrumb";
-import {roleOptionForSuperAdmin} from "@/constants/global";
+import {
+  adminPermissionOptions,
+  roleOptionForSuperAdmin,
+} from "@/constants/global";
 import {useAddNewUserMutation} from "@/redux/api/userApi";
 
 import {createUser} from "@/schemas/creatUser";
@@ -48,7 +52,7 @@ const CreatUser = () => {
           },
         ]}
       />
-      <ActionBar title="Create New User"> </ActionBar>
+      <ActionBar title="Create New Admin"> </ActionBar>
       <div>
         <Form submitHandler={onSubmit} resolver={yupResolver(createUser)}>
           <div
@@ -61,7 +65,7 @@ const CreatUser = () => {
             <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
               <Col
                 className="gutter-row"
-                span={12}
+                span={8}
                 style={{
                   marginBottom: "10px",
                 }}>
@@ -75,7 +79,7 @@ const CreatUser = () => {
               </Col>
               <Col
                 className="gutter-row"
-                span={12}
+                span={8}
                 style={{
                   marginBottom: "10px",
                 }}>
@@ -84,6 +88,20 @@ const CreatUser = () => {
                   type="text"
                   size="large"
                   label="Contact Number"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}>
+                <FormMultiSelectField
+                  name="permissions"
+                  label="Permissions"
+                  size="large"
+                  placeholder="Select"
+                  options={adminPermissionOptions}
                 />
               </Col>
               <Col
